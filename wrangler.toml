@@ -1,0 +1,6 @@
+name = "easyedit"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# 環境變數在 Cloudflare Dashboard 設定，不要寫在這裡

@@ -1,7 +1,6 @@
 import { getTogether } from "@/lib/get-together";
 import { getIPAddress, getRateLimiter } from "@/lib/rate-limiter";
 import { NextRequest, NextResponse } from "next/server";
-import sharp from "sharp";
 import { z } from "zod/v4";
 
 const schema = z.array(z.string());
@@ -14,24 +13,26 @@ const ratelimit = getRateLimiter();
 const SYSTEM_PROMPT = `Suggest exactly 3 simple image edits. Output ONLY a JSON array of 3 short strings (5-8 words each). Example: ["edit 1","edit 2","edit 3"]`;
 
 async function fetchAndCompressImage(imageUrl: string): Promise<string> {
-  // Fetch image server-side (no CORS issues)
+  // 若已是 base64 data URL，直接回傳
+  if (imageUrl.startsWith("data:")) {
+    return imageUrl;
+  }
+
+  // 一般 URL：fetch 後轉成 base64
   const response = await fetch(imageUrl);
   if (!response.ok) {
     throw new Error(`Failed to fetch image: ${response.status}`);
   }
 
   const arrayBuffer = await response.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-
-  // Use sharp to resize and compress
-  const compressedBuffer = await sharp(buffer)
-    .resize(300, 300, { fit: "inside", withoutEnlargement: true })
-    .jpeg({ quality: 80, progressive: true })
-    .toBuffer();
-
-  // Convert to base64 data URL
-  const base64 = compressedBuffer.toString("base64");
-  return `data:image/jpeg;base64,${base64}`;
+  const bytes = new Uint8Array(arrayBuffer);
+  let binary = "";
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  const base64 = btoa(binary);
+  const contentType = response.headers.get("content-type") || "image/jpeg";
+  return `data:${contentType};base64,${base64}`;
 }
 
 export async function GET(request: NextRequest) {

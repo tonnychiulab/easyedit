@@ -36,15 +36,15 @@ export function UserAPIKey() {
 
       if (result.success) {
         localStorage.setItem("togetherApiKey", apiKey);
-        toast.success("API key validated and saved!");
+        toast.success("API Key 驗證成功並已儲存！");
         return true;
       } else {
-        toast.error(result.message || "Invalid API key");
+        toast.error(result.message || "無效的 API Key");
         return false;
       }
     } catch (error) {
       console.error("Error validating API key:", error);
-      toast.error("Failed to validate API key. Please try again.");
+      toast.error("API Key 驗證失敗，請重試。");
       return false;
     } finally {
       setIsValidating(false);
@@ -72,14 +72,14 @@ export function UserAPIKey() {
   return (
     <div className="flex gap-3">
       <div className="text-left text-xs max-md:hidden">
-        <p className="text-gray-600">[Optional] Add your</p>
+        <p className="text-gray-600">（選填）輸入你的</p>
         <a
           href="https://api.together.xyz/settings/api-keys"
           target="_blank"
           className="text-gray-300 underline"
           rel="noopener noreferrer"
         >
-          Together API Key:
+          Together API Key：
         </a>
       </div>
       <div className="relative flex-1">

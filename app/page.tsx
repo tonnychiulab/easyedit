@@ -182,7 +182,7 @@ export default function Home() {
           {!activeImage ? (
             <>
               <h1 className="mx-auto max-w-md text-center text-2xl text-balance text-white md:text-4xl">
-                Edit any image with a simple prompt
+                用一句話編輯任何圖片
               </h1>
 
               <div className="mt-8">
@@ -230,7 +230,7 @@ export default function Home() {
                     </div>
                     {activeImage.prompt && (
                       <div>
-                        <p className="text-xs text-gray-400">Prompt used:</p>
+                        <p className="text-xs text-gray-400">使用的提示詞：</p>
                         <p className="text-sm text-gray-50 md:text-base">
                           {activeImage.prompt}
                         </p>
@@ -238,7 +238,7 @@ export default function Home() {
                     )}
                   </div>
                   <button
-                    title="Download this image"
+                    title="下載此圖片"
                     onClick={handleDownload}
                     className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white text-gray-900 transition hover:bg-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
@@ -252,10 +252,10 @@ export default function Home() {
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gray-900/75">
                     <Spinner className="size-6 text-white" />
                     <p className="animate-pulse text-xl text-white">
-                      Editing your image...
+                      圖片編輯中...
                     </p>
                     <p className="text-sm text-gray-400">
-                      This can take up to 15 seconds.
+                      最多需要 15 秒。
                     </p>
                   </div>
                 )}
@@ -307,7 +307,7 @@ export default function Home() {
                         htmlFor="model-select"
                         className="mb-2 block text-sm font-medium text-gray-300"
                       >
-                        Model
+                        模型
                       </label>
                       <div className="relative">
                         <select
@@ -329,7 +329,7 @@ export default function Home() {
                             disabled={!hasApiKey}
                           >
                             Flux 2 Pro{" "}
-                            {!hasApiKey && "(Together API key required)"}
+                            {!hasApiKey && "（需要 Together API Key）"}
                           </option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
@@ -351,8 +351,7 @@ export default function Home() {
                       {!hasApiKey &&
                         selectedModel === "black-forest-labs/FLUX.2-pro" && (
                           <p className="mt-1 text-xs text-amber-400">
-                            Pro model requires an API key. Please add your
-                            Together AI API key to use this model.
+                            Pro 模型需要 API Key，請輸入你的 Together AI API Key。
                           </p>
                         )}
                     </div>
@@ -366,7 +365,7 @@ export default function Home() {
                         className="mr-2 w-full px-3 py-4 pr-14 focus-visible:outline-none disabled:opacity-50 md:hidden"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="Tell us the changes you want..."
+                        placeholder="告訴我們你想要的改變..."
                         required
                       />
 
@@ -378,7 +377,7 @@ export default function Home() {
                         className="mr-2 w-full px-4 py-5 pr-14 focus-visible:outline-none disabled:opacity-50 max-md:hidden"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="Tell us the changes you want..."
+                        placeholder="告訴我們你想要的改變..."
                         required
                       />
 
@@ -409,7 +408,7 @@ export default function Home() {
                   </form>
                 ) : (
                   <p className="pb-19 text-base/12 md:pb-25">
-                    Select an image to make more edits.
+                    選擇一張圖片繼續編輯。
                   </p>
                 )}
               </div>
