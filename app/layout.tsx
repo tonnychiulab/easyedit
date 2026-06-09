@@ -155,4 +155,7 @@ export default function RootLayout({
             </a>
           </div>
         </footer>
-      </bo
+      </body>
+    </html>
+  );
+}
