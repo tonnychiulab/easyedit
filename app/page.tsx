@@ -2,7 +2,7 @@
 
 import Image, { getImageProps } from "next/image";
 import { useRef, useState, useTransition, useEffect, useMemo } from "react";
-import { generateImage } from "./actions";
+
 import { ImageUploader } from "./ImageUploader";
 import { Fieldset } from "./Fieldset";
 import Spinner from "./Spinner";
@@ -271,14 +271,20 @@ export default function Home() {
                       startTransition(async () => {
                         const prompt = formData.get("prompt") as string;
 
-                        const generation = await generateImage({
-                          imageUrl: activeImage.url, // Use the currently active image
-                          prompt,
-                          width: imageData.width,
-                          height: imageData.height,
-                          userAPIKey: localStorage.getItem("togetherApiKey"),
-                          model: selectedModel,
+                        const res = await fetch("/api/generate-image", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            imageUrl: activeImage.url,
+                            prompt,
+                            width: imageData.width,
+                            height: imageData.height,
+                            userAPIKey:
+                              localStorage.getItem("togetherApiKey"),
+                            model: selectedModel,
+                          }),
                         });
+                        const generation = await res.json();
 
                         if (generation.success) {
                           await preloadNextImage({
