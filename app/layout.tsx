@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Kulim_Park, Syne_Mono } from "next/font/google";
 import "./globals.css";
 import { Logo } from "./Logo";
 import PlausibleProvider from "next-plausible";
@@ -8,18 +7,6 @@ import { Toaster } from "@/components/ui/sonner";
 import GitHub from "./components/GitHubIcon";
 import XformerlyTwitter from "./components/TwitterIcon";
 import { PlusIcon } from "./components/PlusIcon";
-
-const kulimPark = Kulim_Park({
-  variable: "--font-kulim-park",
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "600", "700"],
-});
-
-const syneMono = Syne_Mono({
-  variable: "--font-syne-mono",
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
 const title = "EasyEdit – 用一句話編輯圖片";
 const description = "最簡單的 AI 圖片編輯工具";
@@ -63,8 +50,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-TW" className={`${kulimPark.variable} ${syneMono.variable}`}>
+    <html lang="zh-TW">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:wght@200;300;400;600;700&family=Syne+Mono&display=swap" rel="stylesheet" />
         <PlausibleProvider domain="easyedit.io" />
       </head>
       <body className="flex min-h-screen w-full flex-col antialiased">
