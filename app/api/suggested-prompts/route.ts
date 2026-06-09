@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { getTogether } from "@/lib/get-together";
 import { getIPAddress, getRateLimiter } from "@/lib/rate-limiter";
 import { NextRequest, NextResponse } from "next/server";

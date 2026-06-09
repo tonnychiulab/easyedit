@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { getTogether } from "@/lib/get-together";
 
 export async function POST(request: Request) {
