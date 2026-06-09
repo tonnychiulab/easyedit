@@ -35,6 +35,8 @@ export async function POST(request: NextRequest) {
     Number(height) || 768,
   );
 
+  console.log(`[generate-image] 開始生成，模型：${validModel}，尺寸：${adjustedDimensions.width}x${adjustedDimensions.height}，有無 API KEY：${!!userAPIKey}`);
+
   try {
     const json = await together.images.create({
       model: validModel,
@@ -46,13 +48,16 @@ export async function POST(request: NextRequest) {
 
     const url = (json as any).data[0].url;
     if (url) {
+      console.log(`[generate-image] 生成成功，模型：${validModel}`);
       return NextResponse.json({ success: true, url });
     }
+    console.warn(`[generate-image] 無回傳 URL，模型：${validModel}`);
     return NextResponse.json({
       success: false,
       error: "Image could not be generated. Please try again.",
     });
   } catch (e: any) {
+    console.error(`[generate-image] 生成失敗，模型：${validModel}，錯誤：`, e?.message ?? e);
     if (e.toString().includes("403")) {
       return NextResponse.json({
         success: false,
